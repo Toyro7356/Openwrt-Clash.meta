@@ -307,7 +307,7 @@ rule-providers:
     type: http
     behavior: classical
     path: ./rule_provider/Game.yaml
-    url: https://raw.githubusercontent.com/Toyro7356/ProxyConfig-Clash.meta/release/Rules/Game.yaml
+    url: https://raw.githubusercontent.com/Toyro7356/ProxyConfig-Clash.meta/main/Rules/Game.yaml
     interval: 86400
 rules:
   - IP-CIDR,1.12.12.12/32,DIRECT,no-resolve
