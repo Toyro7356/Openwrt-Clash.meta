@@ -1,0 +1,19 @@
+payload:
+#小米安全守护#
+  - DOMAIN-SUFFIX,footprintdns.com
+  - DOMAIN,httpdns.browser.miui.com
+  # Reject Xiaomi HTTPDNS
+  #- DOMAIN,miui-fxcse.avlyun.com
+  #- DOMAIN,sdkconf.avlyun.com
+  #- DOMAIN,miav-cse.avlyun.com
+  #- DOMAIN,ixav-cse.avlyun.com
+  #- DOMAIN,logupdate.avlyun.sec.miui.com
+  #- DOMAIN,update.avlyun.sec.miui.com
+  #- DOMAIN,security.browser.miui.com
+  #- DOMAIN,tmfsdk.m.qq.com
+  #- DOMAIN,a0.app.xiaomi.com
+  #- DOMAIN,flash.sec.miui.com
+  #- DOMAIN,api.installer.xiaomi.com
+#反诈#
+  - IP-CIDR,120.204.204.201/32
+  # Only For SH.CN
