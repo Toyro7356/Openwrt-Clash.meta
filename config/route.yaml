@@ -279,6 +279,7 @@ proxy-groups:
       - 台湾节点
       - 香港节点
       - 美国节点
+      - DIRECT
     url: "http://cp.cloudflare.com/"
     interval: 600
   - name: 其它节点
@@ -306,17 +307,9 @@ rule-providers:
     path: ./rule_provider/Game.yaml
     url: https://raw.githubusercontent.com/Toyro7356/ProxyConfig-Clash.meta/main/Rules/Game.yaml
     interval: 86400
-sub-rules:
-  rule1:
-    - NETWORK,udp,REJECT
-    - DST-PORT,81-442/444-65535,REJECT
 rules:
-  - SRC-IP-CIDR,192.168.100.101/32,DIRECT,no-resolve
-  - SRC-IP-CIDR,192.168.100.102/32,DIRECT,no-resolve
   - IP-CIDR,1.12.12.12/32,DIRECT,no-resolve
-  - IP-CIDR,120.53.53.53/32,DIRECT,no-resolve
   - IP-CIDR,119.29.29.29/32,DIRECT,no-resolve
-  - DOMAIN,relay.firefox.com,台湾节点,no-resolve
   - RULE-SET,GoogleFCM,DIRECT,no-resolve
   - GEOIP,google,全球加速,no-resolve
   - GEOSITE,google,全球加速,no-resolve
