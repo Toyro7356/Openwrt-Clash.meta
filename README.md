@@ -17,6 +17,6 @@
 
 ## User Guide
 1. The Clash.Meta configuration files are located in the config folder, including route.yaml, normal.yaml, and phone.yaml, which correspond to the routing version, computer (or other) version, and mobile version, respectively. Different versions will make adjustments and optimizations for the corresponding usage environment (mixing is not prohibited).
-2. The Quantumult X configuration file is temporarily suspended (2023);
-3. The Surfboard configuration file will be occasionally maintained (low playability);
+2. The Quantumult X configuration file is temporarily suspended (2023).
+3. The Surfboard configuration file will be occasionally maintained (low playability).
 4. The Loon configuration file will be updated and maintained at a low frequency.
