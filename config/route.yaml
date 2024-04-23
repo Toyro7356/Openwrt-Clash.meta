@@ -23,6 +23,7 @@ dns:
     - tcp://119.29.29.29:53
   nameserver-policy:
     'geosite:cn': 'tls://1.12.12.12:853'
+    'geosite:bahamut': 'tls://8.8.8.8:853#国际媒体'
     'mtalk.google.com': 'tls://1.12.12.12:853'
     'alt1-mtalk.google.com': 'tls://1.12.12.12:853'
     'alt2-mtalk.google.com': 'tls://1.12.12.12:853'

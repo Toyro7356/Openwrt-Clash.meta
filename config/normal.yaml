@@ -21,6 +21,7 @@ dns:
     - tcp://119.29.29.29:53
   nameserver-policy:
     'geosite:cn': 'tls://1.12.12.12:853'
+    'geosite:bahamut': 'tls://8.8.8.8:853#国际媒体'
     'geosite:geolocation-!cn': 'tls://1.0.0.1:853#全球加速'
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter:
