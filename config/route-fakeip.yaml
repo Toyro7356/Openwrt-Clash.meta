@@ -1,15 +1,17 @@
-geodata-mode: true 
+geodata-mode: true
 geo-auto-update: true
 geo-update-interval: 168
 geox-url:
   geoip: "https://testingcf.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat"
   geosite: "https://testingcf.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat"
   mmdb: "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country-only-cn-private.mmdb"
+profile:
+  store-selected: true
+  store-fake-ip: true
 tun:
   enable: true
-  stack: mixed
-  auto-route: true
-  auto-detect-interface: true
+  stack: system
+  device: meta
   dns-hijack:
     - any:53
     - tcp://any:53
@@ -274,25 +276,25 @@ proxy-groups:
       - DIRECT
       - 全球加速
   - name: 香港节点
-    type: url-test
+    type: load-balance
     use:
       - HK
     url: "http://cp.cloudflare.com/"
     interval: 600
   - name: 台湾节点
-    type: url-test
+    type: load-balance
     use:
       - TW
     url: "http://cp.cloudflare.com/"
     interval: 600
   - name: 日本节点
-    type: url-test
+    type: load-balance
     use:
       - JP
     url: "http://cp.cloudflare.com/"
     interval: 600
   - name: 新加坡节点
-    type: url-test
+    type: load-balance
     use:
       - SG
     url: "http://cp.cloudflare.com/"
@@ -307,9 +309,9 @@ proxy-groups:
     type: fallback
     proxies:
       - 新加坡节点
-      - 香港节点     
       - 日本节点
       - 台湾节点
+      - 香港节点
       - 美国节点
     url: "http://cp.cloudflare.com/"
     interval: 600
