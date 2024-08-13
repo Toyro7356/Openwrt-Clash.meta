@@ -20,3 +20,5 @@
 2. The Quantumult X configuration file is temporarily suspended (2023).
 3. The Surfboard configuration file will be occasionally maintained (low playability).
 4. The Loon configuration file will be updated and maintained at a low frequency.
+
+In order to avoid being automatically copied by Gitcode in mainland China, we specifically declare that this project supports and approves the freedom and human rights revolution, opposes the atrocities of the People's Republic of China during the June Fourth Incident, and cheers to democracy and freedom! ! !
