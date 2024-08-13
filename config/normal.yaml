@@ -1,3 +1,4 @@
+# Version: 2024.8.0
 geodata-mode: true 
 geo-auto-update: true
 geo-update-interval: 168
@@ -20,7 +21,7 @@ dns:
   default-nameserver:
     - tcp://119.29.29.29:53
   nameserver-policy:
-    "geosite:Bing": "tls://1.0.0.1:853#全球加速"
+    "geosite:Bing": "tls://8.8.8.8:853#全球加速"
     "geosite:bahamut": "tls://8.8.8.8:853#国际媒体"
     "mtalk.google.com": "tls://1.12.12.12:853"
     "alt1-mtalk.google.com": "tls://1.12.12.12:853"
@@ -31,7 +32,8 @@ dns:
     "alt6-mtalk.google.com": "tls://1.12.12.12:853"
     "alt7-mtalk.google.com": "tls://1.12.12.12:853"
     "alt8-mtalk.google.com": "tls://1.12.12.12:853"
-    "geosite:geolocation-!cn": "tls://1.0.0.1:853#全球加速"
+    "android.apis.google.com": "tls://1.12.12.12:853"
+    "geosite:geolocation-!cn": "tls://8.8.8.8:853#全球加速"
     "geosite:cn": "tls://1.12.12.12:853"
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter:
@@ -136,6 +138,7 @@ dns:
     - "+.wxs.qq.com"
     - "+.yun-hl.3g.qq.com"
     - "engage.nanocat.me"
+    - "android.apis.google.com"
     - "alt1-mtalk.google.com"
     - "alt2-mtalk.google.com"
     - "alt3-mtalk.google.com"
@@ -148,9 +151,9 @@ dns:
   nameserver:
     - tls://1.12.12.12:853
   fallback:
-    - "tls://1.0.0.1:853#全球加速"
+    - "tls://8.8.8.8:853#全球加速"
   proxy-server-nameserver:
-    - tls://1.12.12.12:853
+    - tls://101.101.101.101:853
   fallback-filter:
     geoip: true
     geoip-code: cn
@@ -175,7 +178,7 @@ dns:
 proxy-providers:
   VPN:
     type: http
-    url: "https://订阅链接"
+    url: "URL"
     interval: 86400
     path: ./VPN.yaml
     health-check:
@@ -199,7 +202,7 @@ proxy-providers:
       interval: 1200
       url: http://cp.cloudflare.com/
   SG:
-    filter: 新|狮|獅|SG|(?i)Singapore
+    filter: 新加|狮|獅|SG|(?i)Singapore
     type: file
     path: ./VPN.yaml
     health-check:
@@ -230,6 +233,14 @@ proxy-providers:
       enable: true
       interval: 1200
       url: http://cp.cloudflare.com/
+  DL:
+    filter: 实验
+    type: file
+    path: ./VPN.yaml
+    health-check:
+      enable: true
+      interval: 1200
+      url: http://cp.cloudflare.com/
 proxy-groups:
   - name: 全球加速
     type: select
@@ -240,6 +251,7 @@ proxy-groups:
       - 日本节点
       - 新加坡节点
       - 美国节点
+      - 下载节点
       - 其它节点
       - DIRECT
   - name: 国际媒体
@@ -273,6 +285,18 @@ proxy-groups:
     proxies:
       - DIRECT
       - 全球加速
+  - name: 下载节点
+    type: url-test
+    use:
+      - DL
+    url: "http://cp.cloudflare.com/"
+    interval: 600
+  - name: 其它节点
+    type: select
+    use:
+      - SP
+    url: "http://cp.cloudflare.com/"
+    interval: 600
   - name: 香港节点
     type: url-test
     use:
@@ -313,12 +337,6 @@ proxy-groups:
       - 美国节点
     url: "http://cp.cloudflare.com/"
     interval: 600
-  - name: 其它节点
-    type: select
-    use:
-      - SP
-    url: "http://cp.cloudflare.com/"
-    interval: 600
 rule-providers:
   Streaming:
     type: http
@@ -338,14 +356,21 @@ rule-providers:
     path: ./rule_provider/Game.yaml
     url: https://raw.githubusercontent.com/Toyro7356/ProxyConfig-Clash.meta/main/Rules/Game.yaml
     interval: 86400
+  HTTPDNS:
+    type: http
+    behavior: classical
+    path: ./rule_provider/HTTPDNS.yaml
+    url: https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/HTTPDNS.Block.yaml
+    interval: 86400
 rules:
   - IP-CIDR,1.12.12.12/32,DIRECT,no-resolve
   - IP-CIDR,120.53.53.53/32,DIRECT,no-resolve
   - IP-CIDR,119.29.29.29/32,DIRECT,no-resolve
+  - RULE-SET,HTTPDNS,REJECT,no-resolve
+  - DOMAIN,relay.firefox.com,台湾节点,no-resolve
   - RULE-SET,GoogleFCM,DIRECT,no-resolve
   - GEOIP,google,全球加速,no-resolve
   - GEOSITE,google,全球加速,no-resolve
-  - GEOSITE,nvidia,全球加速,no-resolve
   - GEOSITE,category-games@cn,DIRECT,no-resolve
   - RULE-SET,Game,全球加速,no-resolve
   - GEOSITE,category-games,游戏加速,no-resolve
