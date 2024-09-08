@@ -1,34 +1,35 @@
-# Version: 2024.8.0
+# Version: 2024.9.0
 geodata-mode: true
 geo-auto-update: true
 geo-update-interval: 168
 geox-url:
-  geoip: "https://testingcf.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat"
-  geosite: "https://testingcf.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat"
-  mmdb: "https://cdn.jsdelivr.net/gh/Loyalsoldier/geoip@release/Country-only-cn-private.mmdb"
+  geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb"
 profile:
   store-selected: true
   store-fake-ip: true
 tun:
   enable: true
   stack: system
-  device: meta
   dns-hijack:
     - any:53
     - tcp://any:53
 sniffer:
   enable: true
-  force-dns-mapping: false
-  parse-pure-ip: false
+  force-dns-mapping: true
+  parse-pure-ip: true
   override-destination: false
   sniff:
-    QUIC:
-      ports: [443]
-    TLS:
-      ports: [443, 8443]
     HTTP:
       ports: [80, 8080-8880]
       override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  skip-domain:
+    - Mijia Cloud
 dns:
   enable: true
   listen: 0.0.0.0:53
@@ -69,13 +70,6 @@ dns:
       - 192.0.0.0/24
       - 240.0.0.0/4
     domain:
-      - "+.google.com"
-      - "+.facebook.com"
-      - "+.youtube.com"
-      - "+.githubusercontent.com"
-      - "+.googlevideo.com"
-      - "+.msftconnecttest.com"
-      - "+.msftncsi.com"
       - "+.bing.com"
       - "+.bing.cn"
 proxy-providers:
@@ -266,6 +260,7 @@ rule-providers:
     url: https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/HTTPDNS.Block.yaml
     interval: 86400
 rules:
+  - SRC-PORT,31286,DIRECT,no-resolve
   - IP-CIDR,1.12.12.12/32,DIRECT,no-resolve
   - IP-CIDR,120.53.53.53/32,DIRECT,no-resolve
   - IP-CIDR,223.5.5.5/32,DIRECT,no-resolve
