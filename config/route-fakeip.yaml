@@ -1,68 +1,54 @@
-# Version: 2024.9.1
-geodata-mode: true
-geo-auto-update: true
-geo-update-interval: 168
+# Version: 2024.9.5
 geox-url:
-  geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
-  geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
-  mmdb: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb"
+  geoip: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat'
+  geosite: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat'
+  mmdb: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb'
+geo-auto-update: true
+geo-update-interval: 167
+unified-delay: true
+tcp-concurrent: true
 profile:
   store-selected: true
   store-fake-ip: true
 tun:
   enable: true
-  stack: system
+  stack: mixed
   dns-hijack:
-    - any:53
-    - tcp://any:53
+    - 0.0.0.0:53
 dns:
   enable: true
   listen: 0.0.0.0:53
   ipv6: false
   default-nameserver:
-    - tcp://119.29.29.29:53
-  nameserver-policy:
-    "geosite:Bing": "tls://8.8.8.8:853#全球加速"
-    "geosite:bahamut": "tls://8.8.8.8:853#国际媒体"
-    "mtalk.google.com": "tls://1.12.12.12:853"
-    "alt1-mtalk.google.com": "tls://1.12.12.12:853"
-    "alt2-mtalk.google.com": "tls://1.12.12.12:853"
-    "alt3-mtalk.google.com": "tls://1.12.12.12:853"
-    "alt4-mtalk.google.com": "tls://1.12.12.12:853"
-    "alt5-mtalk.google.com": "tls://1.12.12.12:853"
-    "alt6-mtalk.google.com": "tls://1.12.12.12:853"
-    "alt7-mtalk.google.com": "tls://1.12.12.12:853"
-    "alt8-mtalk.google.com": "tls://1.12.12.12:853"
-    "android.apis.google.com": "tls://1.12.12.12:853"
-    "geosite:geolocation-!cn": "tls://8.8.8.8:853#全球加速"
-    "geosite:cn": "tls://1.12.12.12:853"
+    - tcp://223.5.5.5:53
+  enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter:
     - rule-set:Fakeip-Filter
-    - "*.lan"
-    - "*.direct"
-    - "xbox.*.microsoft.com"
-    - "stun.*"
-    - "localhost.*.qq.com"
-    - "localhost.*.weixin.qq.com"
-    - "ntp.*.com"
-    - "time.*.com"
-    - "ntp?.*.com"
-    - "time?.*.com"
-    - "time.*.gov"
-    - "time.*.edu.cn"
-    - "PDC._msDCS.*.*"
-    - "DC._msDCS.*.*"
-    - "GC._msDCS.*.*"
+    - '*.lan'
+    - '*.direct'
+    - 'xbox.*.microsoft.com'
+    - 'stun.*'
+    - 'localhost.*.qq.com'
+    - 'localhost.*.weixin.qq.com'
+    - 'ntp.*.com'
+    - 'time.*.com'
+    - 'ntp?.*.com'
+    - 'time?.*.com'
+    - 'time.*.gov'
+    - 'time.*.edu.cn'
+    - 'PDC._msDCS.*.*'
+    - 'DC._msDCS.*.*'
+    - 'GC._msDCS.*.*'
+  fake-ip-filter-mode: blacklist
   nameserver:
-    - tls://1.12.12.12:853
+    - https://doh-pure.onedns.net/dns-query
+    - https://doh.pub/dns-query
   fallback:
-    - "tls://8.8.8.8:853#全球加速"
-  proxy-server-nameserver:
-    - tls://101.101.101.101:853
+    - 'tls://1.1.1.1:853#全球加速'
   fallback-filter:
     geoip: true
-    geoip-code: cn
+    geoip-code: CN
     ipcidr:
       - 0.0.0.0/8
       - 10.0.0.0/8
@@ -72,74 +58,14 @@ dns:
       - 192.0.0.0/24
       - 240.0.0.0/4
     domain:
-      - "+.bing.com"
-      - "+.bing.cn"
-proxy-providers:
-  VPN:
-    type: http
-    url: "URL"
-    interval: 86400
-    path: ./VPN.yaml
-    health-check:
-      enable: true
-      interval: 1200
-      url: http://cp.cloudflare.com/
-  HK:
-    filter: 港|HK|(?i)Hong
-    type: file
-    path: ./VPN.yaml
-    health-check:
-      enable: true
-      interval: 1200
-      url: http://cp.cloudflare.com/
-  TW:
-    filter: 台|TW|(?i)Taiwan
-    type: file
-    path: ./VPN.yaml
-    health-check:
-      enable: true
-      interval: 1200
-      url: http://cp.cloudflare.com/
-  SG:
-    filter: 新加|狮|獅|SG|(?i)Singapore
-    type: file
-    path: ./VPN.yaml
-    health-check:
-      enable: true
-      interval: 1200
-      url: http://cp.cloudflare.com/
-  JP:
-    filter: 日|JP|(?i)Japan
-    type: file
-    path: ./VPN.yaml
-    health-check:
-      enable: true
-      interval: 1200
-      url: http://cp.cloudflare.com/
-  US:
-    filter: 美|US|(?i)States|American
-    type: file
-    path: ./VPN.yaml
-    health-check:
-      enable: true
-      interval: 1200
-      url: http://cp.cloudflare.com/
-  SP:
-    filter: "(?=.*())^((?!(Netea|香港|新加|狮城|日本|Exp|Tra|台湾|美国)).)*$"
-    type: file
-    path: ./VPN.yaml
-    health-check:
-      enable: true
-      interval: 1200
-      url: http://cp.cloudflare.com/
-  DL:
-    filter: 实验
-    type: file
-    path: ./VPN.yaml
-    health-check:
-      enable: true
-      interval: 1200
-      url: http://cp.cloudflare.com/
+      - '+.bing.com'
+      - '+.bing.cn'
+  nameserver-policy:
+    'geosite:Bing': 'tls://1.1.1.1:853#全球加速'
+    'geosite:bahamut': 'tls://1.1.1.1:853#国际媒体'
+    'rule-set:GoogleFCM': ['https://doh-pure.onedns.net/dns-query', 'https://doh.pub/dns-query']
+    'geosite:geolocation-!cn': 'tls://1.1.1.1:853#全球加速'
+    'geosite:cn': ['https://doh-pure.onedns.net/dns-query', 'https://doh.pub/dns-query']
 proxy-groups:
   - name: 全球加速
     type: select
@@ -168,6 +94,7 @@ proxy-groups:
     proxies:
       - DIRECT
       - 全球加速
+      - 下载节点
       - 其它节点
       - 台湾节点
       - 日本节点
@@ -184,96 +111,111 @@ proxy-groups:
     proxies:
       - DIRECT
       - 全球加速
-  - name: 下载节点
-    type: url-test
-    use:
-      - DL
-    url: "http://cp.cloudflare.com/"
-    interval: 600
+      - 下载节点
   - name: 其它节点
     type: select
+    filter: '(?=.*())^((?!(Netea|香港|新加|狮城|日本|Exp|Tra|台湾|美国)).)*$'
     use:
-      - SP
-    url: "http://cp.cloudflare.com/"
-    interval: 600
-  - name: 香港节点
-    type: load-balance
-    use:
-      - HK
-    url: "http://cp.cloudflare.com/"
-    interval: 600
-  - name: 台湾节点
-    type: load-balance
-    use:
-      - TW
-    url: "http://cp.cloudflare.com/"
-    interval: 600
-  - name: 日本节点
-    type: load-balance
-    use:
-      - JP
-    url: "http://cp.cloudflare.com/"
-    interval: 600
-  - name: 新加坡节点
-    type: load-balance
-    use:
-      - SG
-    url: "http://cp.cloudflare.com/"
-    interval: 600
-  - name: 美国节点
-    type: url-test
-    use:
-      - US
-    url: "http://cp.cloudflare.com/"
-    interval: 600
+      - VPN
   - name: Fallback
     type: fallback
     proxies:
-      - 新加坡节点
       - 日本节点
-      - 台湾节点
+      - 新加坡节点
       - 香港节点
+      - 台湾节点
       - 美国节点
-    url: "http://cp.cloudflare.com/"
-    interval: 600
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+  - name: 下载节点
+    type: url-test
+    filter: '实验'
+    use:
+      - VPN
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+  - name: 香港节点
+    type: url-test
+    filter: '港|HK|(?i)Hong'
+    use:
+      - VPN
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+  - name: 台湾节点
+    type: url-test
+    filter: '台|TW|(?i)Taiwan'
+    use:
+      - VPN
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+  - name: 日本节点
+    type: url-test
+    filter: '日|JP|(?i)Japan'
+    use:
+      - VPN
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+  - name: 新加坡节点
+    type: url-test
+    filter: '新加|狮|獅|SG|(?i)Singapore'
+    use:
+      - VPN
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+  - name: 美国节点
+    type: url-test
+    filter: '美|US|(?i)States|American'
+    use:
+      - VPN
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+proxy-providers:
+  VPN:
+    type: http
+    url: 'URL'
+    interval: 3600
+    path: ./VPN.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: 'http://www.gstatic.com/generate_204'
 rule-providers:
   Streaming:
     type: http
     behavior: classical
     path: ./rule_provider/Streaming.yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml'
     interval: 86400
   GoogleFCM:
     type: http
     behavior: classical
     path: ./rule_provider/GoogleFCM.yaml
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleFCM/GoogleFCM.yaml
+    url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GoogleFCM/GoogleFCM.yaml'
     interval: 86400
   Game:
     type: http
     behavior: classical
     path: ./rule_provider/Game.yaml
-    url: https://raw.githubusercontent.com/Toyro7356/ProxyConfig-Clash.meta/main/Rules/Game.yaml
+    url: 'https://raw.githubusercontent.com/Toyro7356/ProxyConfig-Clash.meta/main/Rules/Game.yaml'
     interval: 86400
   HTTPDNS:
     type: http
     behavior: classical
     path: ./rule_provider/HTTPDNS.yaml
-    url: https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/HTTPDNS.Block.yaml
+    url: 'https://raw.githubusercontent.com/VirgilClyne/GetSomeFries/main/ruleset/HTTPDNS.Block.yaml'
     interval: 86400
   Fakeip-Filter:
     type: http
     behavior: classical
     path: ./rule_provider/Fakeip-Filter.yaml
-    url: https://raw.githubusercontent.com/Toyro7356/ProxyConfig-Clash.meta/main/Rules/fakeip-filter.yaml
+    url: 'https://raw.githubusercontent.com/Toyro7356/ProxyConfig-Clash.meta/main/Rules/fakeip-filter.yaml'
     interval: 86400
 rules:
-  - SRC-PORT,31286,DIRECT,no-resolve
-  - IP-CIDR,1.12.12.12/32,DIRECT,no-resolve
-  - IP-CIDR,120.53.53.53/32,DIRECT,no-resolve
-  - IP-CIDR,223.5.5.5/32,DIRECT,no-resolve
-  - IP-CIDR,119.29.29.29/32,DIRECT,no-resolve
+  - SRC-PORT,31286,DIRECT
   - RULE-SET,HTTPDNS,REJECT,no-resolve
+  - DOMAIN-SUFFIX,onedns.net,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,doh.pub,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,sc.com,DIRECT,no-resolve
   - RULE-SET,GoogleFCM,DIRECT,no-resolve
   - GEOIP,google,全球加速,no-resolve
   - GEOSITE,google,全球加速,no-resolve
