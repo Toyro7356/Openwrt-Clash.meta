@@ -9,4 +9,5 @@ payload:
   - DOMAIN-SUFFIX,steamgames.com
   - DOMAIN-SUFFIX,steampipe.akamaized.net
   - DOMAIN-SUFFIX,steampowered.com
+  - DOMAIN-SUFFIX,steamstatic.com
   # Fix steam CN issue
