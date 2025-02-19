@@ -1,8 +1,0 @@
-payload:
-  - DOMAIN-SUFFIX,msftconnecttest.com
-  - DOMAIN-SUFFIX,msftncsi.com
-  - DOMAIN-SUFFIX,translate.googleapis.com
-  # Fix google transalte CN issue
-  - DOMAIN-SUFFIX,dl.google.com
-  #- DOMAIN-KEYWORD,
-  #- DOMAIN-SUFFIX,s
