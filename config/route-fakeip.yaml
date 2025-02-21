@@ -42,7 +42,6 @@ dns:
     - 'GC._msDCS.*.*'
   fake-ip-filter-mode: blacklist
   nameserver:
-    - https://doh-pure.onedns.net/dns-query
     - https://doh.pub/dns-query
   fallback:
     - 'tls://1.1.1.1:853#全球加速'
