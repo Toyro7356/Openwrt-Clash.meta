@@ -1,4 +1,4 @@
-# Version: 2024.9.5
+# Version: 2025.2.0 dev
 geox-url:
   geoip: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat'
   geosite: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat'
