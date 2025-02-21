@@ -62,9 +62,9 @@ dns:
   nameserver-policy:
     'geosite:Bing': 'tls://1.1.1.1:853#全球加速'
     'geosite:bahamut': 'tls://1.1.1.1:853#国际媒体'
-    'rule-set:GoogleFCM': ['https://doh-pure.onedns.net/dns-query', 'https://doh.pub/dns-query']
+    'rule-set:GoogleFCM': 'https://doh.pub/dns-query'
     'geosite:geolocation-!cn': 'tls://1.1.1.1:853#全球加速'
-    'geosite:cn': ['https://doh-pure.onedns.net/dns-query', 'https://doh.pub/dns-query']
+    'geosite:cn': 'https://doh.pub/dns-query'
 proxy-groups:
   - name: 全球加速
     type: select
