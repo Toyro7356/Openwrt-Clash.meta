@@ -1,3 +1,4 @@
 payload:
-  - DOMAIN-SUFFIX,yesdownloader.com
   - DOMAIN-SUFFIX,sc.com
+  - DOMAIN-SUFFIX,dyndns.com
+  - DOMAIN,egaleco.dynv6.net
