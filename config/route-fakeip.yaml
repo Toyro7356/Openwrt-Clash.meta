@@ -1,11 +1,11 @@
-# Version: 2025.3.0
+# Version: 2025.4.1
 geox-url:
   geoip: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat'
   geosite: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat'
   mmdb: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb'
   asn: 'https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb'
-geo-auto-update: false
-geo-update-interval: 24
+geo-auto-update: true
+geo-update-interval: 128
 unified-delay: true
 tcp-concurrent: true
 profile:
@@ -18,9 +18,7 @@ tun:
     - 0.0.0.0:53
 dns:
   enable: true
-  prefer-h3: true
   listen: 0.0.0.0:53
-  ipv6: false
   default-nameserver:
     - tcp://223.5.5.5:53
   enhanced-mode: fake-ip
@@ -42,13 +40,12 @@ dns:
     - 'PDC._msDCS.*.*'
     - 'DC._msDCS.*.*'
     - 'GC._msDCS.*.*'
-    - 'api-huacloud.net'
   fake-ip-filter-mode: blacklist
   nameserver:
-    - https://223.5.5.5/dns-query
     - https://1.12.12.12/dns-query
+    - https://223.5.5.5/dns-query
   fallback:
-    - 'https://8.8.8.8/dns-query#全球加速'
+    - 'https://1.0.0.1/dns-query#全球加速'
   fallback-filter:
     geoip: true
     geoip-code: CN
@@ -61,13 +58,14 @@ dns:
       - 192.0.0.0/24
       - 240.0.0.0/4
   nameserver-policy:
-    'rule-set:Bing': 'https://8.8.8.8/dns-query#全球加速'
-    'rule-set:Streaming': 'https://1.1.1.1.com/dns-query#国际媒体'
-    'rule-set:GoogleFCM': ['https://223.5.5.5.com/dns-query','https://1.12.12.12/dns-query']
-    'rule-set:Apple': ['https://223.5.5.5.com/dns-query','https://1.12.12.12/dns-query']
-    'geosite:geolocation-!cn': 'https://8.8.8.8/dns-query#全球加速'
-    'geosite:cn': ['https://223.5.5.5.com/dns-query','https://1.12.12.12/dns-query']
-    'api-huacloud.net': ['https://223.5.5.5.com/dns-query','https://1.12.12.12/dns-query']
+    'api-huacloud.net': ['https://223.5.5.5/dns-query','https://1.12.12.12/dns-query']
+    'checkipv6.dyndns.com': ['https://223.5.5.5/dns-query','https://1.12.12.12/dns-query']
+    'rule-set:WeChat': ['https://1.12.12.12/dns-query','https://223.5.5.5/dns-query']
+    'rule-set:GoogleFCM': ['https://1.12.12.12/dns-query','https://223.5.5.5/dns-query']
+    'rule-set:Apple': ['https://1.12.12.12/dns-query','https://223.5.5.5/dns-query']
+    'rule-set:Bing': 'https://1.0.0.1/dns-query#全球加速'
+    'rule-set:Streaming': 'https://1.0.0.1/dns-query#国际媒体'
+    'geosite:cn': ['https://1.12.12.12/dns-query','https://223.5.5.5/dns-query']
 proxy-groups:
   - name: 全球加速
     type: select
@@ -259,6 +257,12 @@ rule-providers:
     path: ./rule_provider/Game.yaml
     url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Game.yaml'
     interval: 86400
+  WeChat:
+    type: http
+    behavior: classical
+    path: ./rule_provider/WeChat.yaml
+    url: 'https://github.com/blackmatrix7/ios_rule_script/raw/refs/heads/master/rule/Clash/WeChat/WeChat.yaml'
+    interval: 86400
   Steam:
     type: http
     behavior: classical
@@ -277,12 +281,6 @@ rule-providers:
     path: ./rule_provider/GlobalDirect.yaml
     url: 'https://raw.githubusercontent.com/Toyro7356/Openwrt-Clash.meta/main/Rules/GlobalDirect.yaml'
     interval: 86400
-  GlobalDLSave:
-    type: http
-    behavior: classical
-    path: ./rule_provider/GlobalDLSave.yaml
-    url: 'https://raw.githubusercontent.com/Toyro7356/Openwrt-Clash.meta/main/Rules/GlobalDLSave.yaml'
-    interval: 86400
   Fakeip-Filter:
     type: http
     behavior: classical
@@ -290,24 +288,23 @@ rule-providers:
     url: 'https://raw.githubusercontent.com/Toyro7356/Openwrt-Clash.meta/main/Rules/fakeip-filter.yaml'
     interval: 86400
 rules:
-  - PROCESS-NAME,qbittorrent-nox,DIRECT
   - RULE-SET,GlobalDirect,DIRECT,no-resolve
-  - RULE-SET,GlobalDLSave,下载节点,no-resolve  
   - RULE-SET,HTTPDNS,REJECT,no-resolve
   - RULE-SET,Streaming,国际媒体,no-resolve
   - RULE-SET,GoogleFCM,DIRECT,no-resolve
   - GEOIP,telegram,Fallback,no-resolve
-  - GEOSITE,telegram,Fallback,no-resolve
+  - GEOSITE,telegram,Fallback
   - RULE-SET,OneDrive,OneDrive,no-resolve
-  - RULE-SET,Bing,全球加速,no-resolve
   - RULE-SET,Steam,全球加速,no-resolve
   - RULE-SET,Microsoft,Microsoft,no-resolve
   - RULE-SET,Apple,Apple,no-resolve
   - RULE-SET,Google,全球加速,no-resolve
+  - RULE-SET,WeChat,DIRECT,no-resolve
   - RULE-SET,GameDownloadCN,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,recaptcha.net,全球加速
   - RULE-SET,GameDownload,游戏下载,no-resolve
   - RULE-SET,Game,游戏加速,no-resolve
-  - GEOSITE,gfw,全球加速,no-resolve
-  - GEOSITE,cn,DIRECT,no-resolve
+  - GEOSITE,gfw,全球加速
+  - GEOSITE,cn,DIRECT
   - GEOIP,cn,DIRECT
   - MATCH,全球加速
