@@ -1,13 +1,17 @@
-# Version: 2025.4.1
-geox-url:
-  geoip: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat'
-  geosite: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat'
-  mmdb: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb'
-  asn: 'https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb'
-geo-auto-update: true
-geo-update-interval: 128
+# Version: 2025.6.1
+proxy-providers:
+  ProxyURL:
+    type: http
+    url: 'URL'
+    interval: 6400
+    path: ./ProxyURL.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: 'http://www.gstatic.com/generate_204'
 unified-delay: true
 tcp-concurrent: true
+ipv6: true
 tun:
   enable: true
   stack: system
@@ -16,6 +20,7 @@ tun:
 dns:
   enable: true
   listen: 0.0.0.0:53
+  ipv6: true
   default-nameserver:
     - tcp://223.5.5.5:53
   enhanced-mode: fake-ip
@@ -37,12 +42,14 @@ dns:
     - 'PDC._msDCS.*.*'
     - 'DC._msDCS.*.*'
     - 'GC._msDCS.*.*'
-  fake-ip-filter-mode: blacklist
   nameserver:
     - https://1.12.12.12/dns-query
     - https://223.5.5.5/dns-query
   fallback:
     - 'https://1.0.0.1/dns-query#全球加速'
+  direct-nameserver:
+    - https://1.12.12.12/dns-query
+    - https://223.5.5.5/dns-query
   fallback-filter:
     geoip: true
     geoip-code: CN
@@ -56,13 +63,25 @@ dns:
       - 240.0.0.0/4
   nameserver-policy:
     'api-huacloud.net': ['https://223.5.5.5/dns-query','https://1.12.12.12/dns-query']
-    'checkipv6.dyndns.com': ['https://223.5.5.5/dns-query','https://1.12.12.12/dns-query']
+    'framagit.org': ['https://223.5.5.5/dns-query','https://1.12.12.12/dns-query']
+    'geosite:cn': ['https://1.12.12.12/dns-query','https://223.5.5.5/dns-query']
+    'rule-set:SpecialDirect': ['https://1.12.12.12/dns-query','https://223.5.5.5/dns-query']
+    'rule-set:GameDownloadCN': ['https://1.12.12.12/dns-query','https://223.5.5.5/dns-query']
     'rule-set:WeChat': ['https://1.12.12.12/dns-query','https://223.5.5.5/dns-query']
     'rule-set:GoogleFCM': ['https://1.12.12.12/dns-query','https://223.5.5.5/dns-query']
-    'rule-set:Apple': ['https://1.12.12.12/dns-query','https://223.5.5.5/dns-query']
-    'rule-set:Bing': 'https://1.0.0.1/dns-query#全球加速'
     'rule-set:Streaming': 'https://1.0.0.1/dns-query#国际媒体'
-    'geosite:cn': ['https://1.12.12.12/dns-query','https://223.5.5.5/dns-query']
+    'rule-set:Apple': ['https://1.12.12.12/dns-query','https://223.5.5.5/dns-query']
+    'geosite:telegram': 'https://1.0.0.1/dns-query#Fallback'
+    'rule-set:Steam': 'https://1.0.0.1/dns-query#全球加速'
+    'rule-set:Google': 'https://1.0.0.1/dns-query#全球加速'
+    'rule-set:Bing': 'https://1.0.0.1/dns-query#全球加速'
+prproxy: &p
+  type: url-test
+  use:
+    - ProxyURL
+  url: 'http://www.gstatic.com/generate_204'
+  interval: 300
+  hidden: true
 proxy-groups:
   - name: 全球加速
     type: select
@@ -126,7 +145,7 @@ proxy-groups:
     type: select
     filter: '(?=.*())^((?!(Netea|香港|新加|狮城|日本|Exp|Tra|台湾|美国)).)*$'
     use:
-      - VPN
+      - ProxyURL
   - name: Fallback
     type: fallback
     proxies:
@@ -137,64 +156,31 @@ proxy-groups:
       - 美国节点
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
+    hidden: true
   - name: 下载节点
-    type: url-test
     filter: '实验'
-    use:
-      - VPN
-    url: 'http://www.gstatic.com/generate_204'
-    interval: 300
+    <<: *p
   - name: 香港节点
-    type: url-test
     filter: '港|HK|(?i)Hong'
-    use:
-      - VPN
-    url: 'http://www.gstatic.com/generate_204'
-    interval: 300
+    <<: *p
   - name: 台湾节点
-    type: url-test
     filter: '台|TW|(?i)Taiwan'
-    use:
-      - VPN
-    url: 'http://www.gstatic.com/generate_204'
-    interval: 300
+    <<: *p
   - name: 日本节点
-    type: url-test
     filter: '日|JP|(?i)Japan'
-    use:
-      - VPN
-    url: 'http://www.gstatic.com/generate_204'
-    interval: 300
+    <<: *p
   - name: 新加坡节点
-    type: url-test
     filter: '新加|狮|獅|SG|(?i)Singapore'
-    use:
-      - VPN
-    url: 'http://www.gstatic.com/generate_204'
-    interval: 300
-  - name: 美国节点
-    type: url-test
+    <<: *p
+  - name: 美国节点 
     filter: '美|US|(?i)States|American'
-    use:
-      - VPN
-    url: 'http://www.gstatic.com/generate_204'
-    interval: 300
-proxy-providers:
-  VPN:
-    type: http
-    url: 'URL'
-    interval: 6400
-    path: ./VPN.yaml
-    health-check:
-      enable: true
-      interval: 600
-      url: 'http://www.gstatic.com/generate_204'
+    <<: *p
 rule-providers:
   Streaming:
     type: http
     behavior: classical
     path: ./rule_provider/Streaming.yaml
-    url: 'https://raw.githubusercontent.com/Toyro7356/Openwrt-Clash.meta/main/Rules/ProxyMedia.yaml'
+    url: 'https://framagit.org/Locks7895/proxyrules/-/raw/main/Streaming.yaml'
     interval: 86400
   GoogleFCM:
     type: http
@@ -242,7 +228,7 @@ rule-providers:
     type: http
     behavior: classical
     path: ./rule_provider/GameDownloadCN.yaml
-    url: 'https://raw.githubusercontent.com/Toyro7356/Openwrt-Clash.meta/main/Rules/GameDownloadCN.yaml'
+    url: 'https://framagit.org/Locks7895/proxyrules/-/raw/main/GameDownloadCN.yaml'
     interval: 86400
   Game:
     type: http
@@ -250,17 +236,17 @@ rule-providers:
     path: ./rule_provider/Game.yaml
     url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Game.yaml'
     interval: 86400
-  Steam:
-    type: http
-    behavior: classical
-    path: ./rule_provider/Steam.yaml
-    url: 'https://raw.githubusercontent.com/Toyro7356/Openwrt-Clash.meta/main/Rules/Game.yaml'
-    interval: 86400
   WeChat:
     type: http
     behavior: classical
     path: ./rule_provider/WeChat.yaml
     url: 'https://github.com/blackmatrix7/ios_rule_script/raw/refs/heads/master/rule/Clash/WeChat/WeChat.yaml'
+    interval: 86400
+  Steam:
+    type: http
+    behavior: classical
+    path: ./rule_provider/Steam.yaml
+    url: 'https://framagit.org/Locks7895/proxyrules/-/raw/main/Steam.yaml'
     interval: 86400
   HTTPDNS:
     type: http
@@ -268,17 +254,17 @@ rule-providers:
     path: ./rule_provider/HTTPDNS.yaml
     url: 'https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BlockHttpDNS/BlockHttpDNS.yaml'
     interval: 86400
-  GlobalDirect:
+  SpecialDirect:
     type: http
     behavior: classical
-    path: ./rule_provider/GlobalDirect.yaml
-    url: 'https://raw.githubusercontent.com/Toyro7356/Openwrt-Clash.meta/main/Rules/GlobalDirect.yaml'
+    path: ./rule_provider/SpecialDirect.yaml
+    url: 'https://framagit.org/Locks7895/proxyrules/-/raw/main/SpecialDirect.yaml'
     interval: 86400
   Fakeip-Filter:
     type: http
     behavior: classical
     path: ./rule_provider/Fakeip-Filter.yaml
-    url: 'https://raw.githubusercontent.com/Toyro7356/Openwrt-Clash.meta/main/Rules/fakeip-filter.yaml'
+    url: 'https://framagit.org/Locks7895/proxyrules/-/raw/main/Fakeip-Filter.yaml'
     interval: 86400
   LAN:
     type: http
@@ -287,23 +273,27 @@ rule-providers:
     url: 'https://github.com/blackmatrix7/ios_rule_script/raw/refs/heads/master/rule/Clash/Lan/Lan.yaml'
     interval: 86400
 rules:
+  - SRC-PORT,31287,DIRECT
   - RULE-SET,LAN,DIRECT,no-resolve
-  - RULE-SET,GlobalDirect,DIRECT,no-resolve
-  - RULE-SET,HTTPDNS,REJECT,no-resolve
-  - RULE-SET,Streaming,国际媒体,no-resolve
-  - RULE-SET,GoogleFCM,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,framagit.org,DIRECT
+  - DOMAIN,api-huacloud.net,DIRECT
+  - RULE-SET,SpecialDirect,DIRECT
+  - RULE-SET,Streaming,国际媒体
+  - RULE-SET,GoogleFCM,DIRECT
   - GEOIP,telegram,Fallback,no-resolve
   - GEOSITE,telegram,Fallback
-  - RULE-SET,OneDrive,OneDrive,no-resolve
-  - RULE-SET,Steam,全球加速,no-resolve
-  - RULE-SET,Microsoft,Microsoft,no-resolve
-  - RULE-SET,Apple,Apple,no-resolve
-  - RULE-SET,Google,全球加速,no-resolve
-  - RULE-SET,WeChat,DIRECT,no-resolve
-  - RULE-SET,GameDownloadCN,DIRECT,no-resolve
+  - RULE-SET,Steam,全球加速
+  - RULE-SET,OneDrive,OneDrive
+  - RULE-SET,Bing,全球加速
+  - RULE-SET,Microsoft,Microsoft
+  - RULE-SET,Apple,Apple
+  - RULE-SET,Google,全球加速
+  - RULE-SET,GameDownloadCN,DIRECT
   - DOMAIN-SUFFIX,recaptcha.net,全球加速
-  - RULE-SET,GameDownload,游戏下载,no-resolve
+  - RULE-SET,GameDownload,游戏下载
   - RULE-SET,Game,游戏加速,no-resolve
+  - RULE-SET,HTTPDNS,REJECT
+  - RULE-SET,WeChat,DIRECT,no-resolve
   - GEOSITE,gfw,全球加速
   - GEOSITE,cn,DIRECT
   - GEOIP,cn,DIRECT
