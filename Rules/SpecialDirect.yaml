@@ -10,4 +10,3 @@ payload:
   - DOMAIN,api-huacloud.net
 #Qbittorrent
   - PROCESS-NAME,qbittorrent-nox
-  - DOMAIN-SUFFIX,framagit.org

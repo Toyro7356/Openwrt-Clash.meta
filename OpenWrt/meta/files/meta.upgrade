@@ -1,7 +1,0 @@
-/etc/meta/profiles/
-/etc/meta/subscriptions/
-/etc/meta/mixin.yaml
-/etc/meta/run/providers/rule/
-/etc/meta/run/providers/proxy/
-/etc/meta/nftables/reserved_ip.nft
-/etc/meta/nftables/reserved_ip6.nft
