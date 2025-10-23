@@ -1,0 +1,12 @@
+payload:
+#渣打银行
+  - DOMAIN-SUFFIX,sc.com
+#PRTS
+  - DOMAIN-SUFFIX,zoot.plus
+#DDNS
+  - DOMAIN-SUFFIX,dyndns.com
+  - DOMAIN,egaleco.dynv6.net
+#Flowercloud
+  - DOMAIN,api-huacloud.net
+#Qbittorrent
+  - PROCESS-NAME,qbittorrent-nox

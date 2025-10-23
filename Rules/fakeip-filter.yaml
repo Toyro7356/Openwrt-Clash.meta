@@ -96,5 +96,7 @@ payload:
   - DOMAIN-SUFFIX,doh-pure.onedns.net
   - DOMAIN-SUFFIX,cloudflare-dns.com
   - DOMAIN-SUFFIX,unfiltered.adguard-dns.com
+#Flowercloud
   - DOMAIN-SUFFIX,api-huacloud.net
+#DDNS
   - DOMAIN,egaleco.dynv6.net

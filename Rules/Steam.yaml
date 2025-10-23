@@ -1,4 +1,5 @@
 payload:
+  # 修复steam连接问题
   - DOMAIN-SUFFIX,s.team
   - DOMAIN-SUFFIX,steam-api.com
   - DOMAIN-SUFFIX,fanatical.com
@@ -20,4 +21,3 @@ payload:
   - DOMAIN,steamcommunity-a.akamaihd.net
   - DOMAIN,steamstore-a.akamaihd.net
   - DOMAIN,steamuserimages-a.akamaihd.net
-  # Fix steam CN issue

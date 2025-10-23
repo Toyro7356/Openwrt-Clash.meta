@@ -1,4 +1,4 @@
-# Version: 2025.6.1
+# Version: 1.0.0
 proxy-providers:
   ProxyURL:
     type: http
@@ -78,11 +78,12 @@ dns:
     'rule-set:Google': 'https://1.0.0.1/dns-query#全球加速'
     'rule-set:Bing': 'https://1.0.0.1/dns-query#全球加速'
 prproxy: &p
-  type: url-test
+  type: smart
+  uselightgbm: true
+  collectdata: false
+  strategy: sticky-sessions
   use:
     - ProxyURL
-  url: 'http://www.gstatic.com/generate_204'
-  interval: 300
   hidden: true
 proxy-groups:
   - name: 全球加速
