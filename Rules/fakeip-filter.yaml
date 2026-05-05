@@ -69,6 +69,7 @@ payload:
   - DOMAIN-SUFFIX,ntp.org.cn
   - DOMAIN-SUFFIX,doh.pub
   - DOMAIN-SUFFIX,dot.pub
+  - DOMAIN-SUFFIX,dns.alidns.com
   - DOMAIN-SUFFIX,dns.google
   - DOMAIN-SUFFIX,y.qq.com
   - DOMAIN-SUFFIX,iot-tencent.com
