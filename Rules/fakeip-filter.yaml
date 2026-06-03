@@ -101,3 +101,4 @@ payload:
   - DOMAIN-SUFFIX,api-huacloud.net
 #DDNS
   - DOMAIN,egaleco.dynv6.net
+  - DOMAIN,ssh.github.com
