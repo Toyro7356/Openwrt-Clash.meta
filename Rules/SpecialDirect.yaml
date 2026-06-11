@@ -8,5 +8,6 @@ payload:
   - DOMAIN,egaleco.dynv6.net
 #Flowercloud
   - DOMAIN,api-huacloud.net
+  - DOMAIN,api.linkcube.dev
 #Qbittorrent
   - PROCESS-NAME,qbittorrent-nox
