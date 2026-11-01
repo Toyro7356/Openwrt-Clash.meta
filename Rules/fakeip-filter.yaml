@@ -103,3 +103,4 @@ payload:
   - DOMAIN-SUFFIX,api-huacloud.net
 #DDNS
   - DOMAIN-SUFFIX,caillo.uk
+  - DOMAIN,pve.caillo.uk
