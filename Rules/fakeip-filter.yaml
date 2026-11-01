@@ -102,5 +102,4 @@ payload:
 #Flowercloud
   - DOMAIN-SUFFIX,api-huacloud.net
 #DDNS
-  - DOMAIN,egaleco.dynv6.net
-  - DOMAIN,ssh.github.com
+  - DOMAIN-SUFFIX,caillo.uk
