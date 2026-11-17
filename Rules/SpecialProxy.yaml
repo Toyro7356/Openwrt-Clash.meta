@@ -2,4 +2,6 @@ payload:
   - DOMAIN-SUFFIX,esjzone.cc
   - DOMAIN-SUFFIX,esjzone.one
   - DOMAIN-SUFFIX,recaptcha.net
+  - DOMAIN-SUFFIX,amd.com
   - DOMAIN,vscode.download.prss.microsoft.com
+  - DOMAIN-SUFFIX,visualstudio.com
